@@ -17,4 +17,9 @@
   <ItemGroup>
     <Reference Include="System.Configuration" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Examine.config" PackagePath="content\config\" />
+    <Content Include="web.config.Install.xdt" />
+    <Content Include="web.config.Uninstall.xdt" />
+  </ItemGroup>
 </Project>

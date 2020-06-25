@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<configuration xmlns:xdt="http://schemas.microsoft.com/XML-Document-Transform">
+  <configSections>
+    <!-- Examine section -->
+    <section name="examine"
+             type="Examine.Config.Configuration.ExamineConfig, Examine.Config"
+             requirePermission="false"
+             xdt:Transform="Insert" />
+  </configSections>
+
+  <!-- Examine.config file -->
+  <examine configSource="config\Examine.config"
+           xdt:Transform="InsertAfter(/configuration/configSections)" />
+</configuration>
