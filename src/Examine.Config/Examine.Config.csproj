@@ -22,4 +22,7 @@
     <Content Include="web.config.Install.xdt" />
     <Content Include="web.config.Uninstall.xdt" />
   </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Examine" Version="1.0.0" />
+  </ItemGroup>
 </Project>
