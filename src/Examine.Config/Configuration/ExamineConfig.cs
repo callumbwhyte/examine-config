@@ -1,11 +1,17 @@
 ﻿using System.Collections.Generic;
 using System.Configuration;
 using Examine.Config.Configuration.Collections;
+using Examine.Config.Helpers;
 
 namespace Examine.Config.Configuration
 {
     public class ExamineConfig : ConfigurationSection, IExamineConfig
     {
+        public ExamineConfig()
+        {
+            Configure(this);
+        }
+
         [ConfigurationProperty("indexes", IsRequired = true)]
         public IndexCollection Indexes
         {
@@ -31,5 +37,14 @@ namespace Examine.Config.Configuration
         IEnumerable<ISearcherConfig> IExamineConfig.Searchers => Searchers;
 
         #endregion
+
+        public void Configure(IExamineConfig examineConfig)
+        {
+            var examineHelper = new ExamineHelper();
+
+            examineHelper.ConfigureIndexes(examineConfig.Indexes);
+
+            examineHelper.ConfigureSearchers(examineConfig.Searchers);
+        }
     }
 }
