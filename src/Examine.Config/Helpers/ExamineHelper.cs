@@ -16,6 +16,16 @@ namespace Examine.Config.Helpers
         public ExamineHelper(IExamineManager examineManager)
         {
             _examineManager = examineManager;
+
+        #region Singleton accessors
+
+        public static IExamineHelper Instance => new ExamineHelper();
+
+        public static ConcurrentDictionary<string, IIndexConfig> Indexes => new ConcurrentDictionary<string, IIndexConfig>();
+
+        public static ConcurrentDictionary<string, ISearcherConfig> Searchers => new ConcurrentDictionary<string, ISearcherConfig>();
+
+        #endregion
         }
 
         public void ConfigureIndexes(IEnumerable<IIndexConfig> indexes)
