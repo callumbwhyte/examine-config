@@ -40,11 +40,9 @@ namespace Examine.Config.Configuration
 
         public void Configure(IExamineConfig examineConfig)
         {
-            var examineHelper = new ExamineHelper();
+            ExamineHelper.Instance.RegisterIndexes(examineConfig.Indexes);
 
-            examineHelper.ConfigureIndexes(examineConfig.Indexes);
-
-            examineHelper.ConfigureSearchers(examineConfig.Searchers);
+            ExamineHelper.Instance.RegisterSearchers(examineConfig.Searchers);
         }
     }
 }

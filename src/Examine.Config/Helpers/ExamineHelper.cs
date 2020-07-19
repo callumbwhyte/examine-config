@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 
 namespace Examine.Config.Helpers
@@ -26,6 +27,31 @@ namespace Examine.Config.Helpers
         public static ConcurrentDictionary<string, ISearcherConfig> Searchers => new ConcurrentDictionary<string, ISearcherConfig>();
 
         #endregion
+
+        public void RegisterIndex(IIndexConfig index)
+        {
+            Indexes[index.Name] = index;
+        }
+
+        public void RegisterIndexes(IEnumerable<IIndexConfig> indexes)
+        {
+            foreach (var index in indexes)
+            {
+                RegisterIndex(index);
+            }
+        }
+
+        public void RegisterSearcher(ISearcherConfig searcher)
+        {
+            Searchers[searcher.Name] = searcher;
+        }
+
+        public void RegisterSearchers(IEnumerable<ISearcherConfig> searchers)
+        {
+            foreach (var searcher in searchers)
+            {
+                RegisterSearcher(searcher);
+            }
         }
 
         public void ConfigureIndexes(IEnumerable<IIndexConfig> indexes)

@@ -4,7 +4,9 @@ namespace Examine.Config.Helpers
 {
     public interface IExamineHelper
     {
-        void ConfigureIndexes(IEnumerable<IIndexConfig> indexes);
-        void ConfigureSearchers(IEnumerable<ISearcherConfig> searchers);
+        void RegisterIndex(IIndexConfig index);
+        void RegisterIndexes(IEnumerable<IIndexConfig> indexes);
+        void RegisterSearcher(ISearcherConfig searcher);
+        void RegisterSearchers(IEnumerable<ISearcherConfig> searchers);
     }
 }
