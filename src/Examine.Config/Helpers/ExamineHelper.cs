@@ -7,16 +7,18 @@ namespace Examine.Config.Helpers
     public class ExamineHelper : IExamineHelper
     {
         private readonly IExamineManager _examineManager;
+        private readonly IMappingHelper _mappingHelper;
 
         internal ExamineHelper()
-            : this(ExamineManager.Instance)
+            : this(ExamineManager.Instance, new MappingHelper())
         {
 
         }
 
-        public ExamineHelper(IExamineManager examineManager)
+        public ExamineHelper(IExamineManager examineManager, IMappingHelper mappingHelper)
         {
             _examineManager = examineManager;
+            _mappingHelper = mappingHelper;
 
         #region Singleton accessors
 
@@ -30,6 +32,16 @@ namespace Examine.Config.Helpers
 
         public void RegisterIndex(IIndexConfig index)
         {
+            if (Indexes.TryGetValue(index.Name, out IIndexConfig baseConfig) == true)
+            {
+                if (!(index is BaseIndexConfig config))
+                {
+                    config = new BaseIndexConfig(index);
+                }
+
+                index = _mappingHelper.Map<IIndexConfig>(baseConfig, config);
+            }
+
             Indexes[index.Name] = index;
         }
 
@@ -43,6 +55,16 @@ namespace Examine.Config.Helpers
 
         public void RegisterSearcher(ISearcherConfig searcher)
         {
+            if (Searchers.TryGetValue(searcher.Name, out ISearcherConfig baseConfig) == true)
+            {
+                if (!(searcher is BaseSearcherConfig config))
+                {
+                    config = new BaseSearcherConfig(searcher);
+                }
+
+                searcher = _mappingHelper.Map<ISearcherConfig>(baseConfig, config);
+            }
+
             Searchers[searcher.Name] = searcher;
         }
 
